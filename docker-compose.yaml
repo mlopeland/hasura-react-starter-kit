@@ -1,0 +1,28 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:12
+    volumes:
+      - ./db:/var/lib/posgresql/data
+    env_file:
+      - .env
+  hasura:
+    image: hasura/graphql-engine:v2.1.1
+    ports: 
+      - "8080:8080"
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+  backend:
+    build: 
+      context: backend
+    volumes:
+      - "./backend:/app"
+      - "./app/node_modules"
+    depends_on:
+      - hasura
+    ports:
+      - "8081:8080"
+    env_file:
+      - .env
