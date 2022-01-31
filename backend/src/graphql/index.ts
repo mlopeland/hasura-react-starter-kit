@@ -1,9 +1,8 @@
 import to from 'await-to-js';
 import bcrypt from 'bcrypt';
-import { ContextContainer } from './context';
+import { ContextContainer } from '../helpers';
 
 export * from './schema';
-export * from './context';
 
 export const rootValue = {
     signup: async (input: any, context: ContextContainer) : Promise<any> => {

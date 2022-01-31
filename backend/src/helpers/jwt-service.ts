@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
 
-export default class JwtService {
+export class JwtService {
     private secret : string;
     private config : any;
 
-    constructor(secret: string) {
+    public constructor(secret: string) {
         this.secret = secret;
         this.config = {
             algorithm: 'HS256'

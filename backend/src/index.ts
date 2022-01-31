@@ -4,9 +4,9 @@ import cookieParser from 'cookie-parser';
 import { graphqlHTTP } from 'express-graphql';
 import { GraphQLClient } from 'graphql-request';
 
-import { schema, rootValue, ContextIoC, ContextContainer } from './graphql';
+import { schema, rootValue } from './graphql';
 import { UserClient } from './clients';
-import JwtService from './services/jwt-service';
+import { JwtService, ContextContainer, ContextIoC } from './helpers';
 
 const PORT = 8080;
 const HASURA = 'hasura:8080';

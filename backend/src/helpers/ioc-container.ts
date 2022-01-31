@@ -1,5 +1,5 @@
 import { UserClient } from '../clients/users';
-import JwtService from '../services/jwt-service';
+import { JwtService } from './jwt-service';
 
 export class ContextContainer {
     public req: any;
