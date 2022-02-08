@@ -41,10 +41,10 @@ Enter the frontend container shell, install the dependencies and run the next.js
 docker-compose exec frontend sh
 npm install 
 npm run build
-npm start
+npm run dev
 ```
 
-For a better experience, have two separate terminals running with backend and frontend. The frontend now should be exposed through a graphql API in `localhost:8081` and the frontend should be present as a next.js app running at `localhost:8082`.
+For a better experience, have two separate terminals running with backend and frontend. The frontend now should be exposed through a graphql API in `localhost:8081` and the frontend should be present as a next.js app running at `localhost:8082`. The `8080` also exposes the Hasura port, you can play with the `docker-compose` file to expose as many ports as you need.
 
 Your `docker ps` command should show something like this
 

@@ -3,6 +3,7 @@ import proxy from 'express-http-proxy';
 import cookieParser from 'cookie-parser';
 import { graphqlHTTP } from 'express-graphql';
 import { GraphQLClient } from 'graphql-request';
+import cors from 'cors';
 
 import { schema, rootValue } from './graphql';
 import { UserClient } from './clients';
@@ -22,6 +23,7 @@ const jwtService = new JwtService(KEY);
 const contextIoC = new ContextIoC(userClient, jwtService);
 
 // middlewares
+app.use(cors()); // dev only
 app.use(cookieParser());
 app.use('/v0/graphql', graphqlHTTP((req: any, res: any) => 
     ({ schema, rootValue, context: new ContextContainer(req, res, contextIoC) })));
