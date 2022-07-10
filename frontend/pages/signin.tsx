@@ -18,7 +18,7 @@ import {
 } from '@chakra-ui/react';
 
 import { PublicLayout } from "../components/layouts";
-import { IocContext, isSignedIn, useDarkMode } from '../hooks';
+import { IocContext, useDarkMode } from '../hooks';
 
 const useSigninHook = () => {
     const [email, setEmail] = useState("");
