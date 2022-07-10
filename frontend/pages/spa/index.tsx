@@ -1,8 +1,12 @@
 import { NextPage } from "next";
 
+import { SpaLayout } from "../../components/layouts";
+
 const Spa = () => {
     return (
-        <>SpaContent</>
+        <SpaLayout>
+            <>SpaContent</>
+        </SpaLayout>
     );
 };
 
