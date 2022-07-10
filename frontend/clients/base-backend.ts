@@ -9,12 +9,13 @@ export class BaseBackendClient {
         this.axios = axios;
     }
 
-    private gqlPost = async (path: string, query: string, variables: any) : Promise<any> => {
+    private gqlPost = async (path: string, query: string, variables: any, headers : any = {}) : Promise<any> => {
         const [err, res] = await to(this.axios({
             method: 'POST',
             url: `${ this.endpoint }${ path }`,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                ...headers
             },
             data: { query, variables }
         })) as any[];
@@ -32,5 +33,9 @@ export class BaseBackendClient {
 
     protected gqlV0 = async (query: string, variables: any) : Promise<any> => {
         return this.gqlPost('/v0/graphql', query, variables);
+    };
+
+    protected gqlV1 = async (query: string, variables: any) : Promise<any> => {
+        return this.gqlPost('/v1/graphql', query, variables);
     };
 }

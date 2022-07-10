@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Link from 'next/link';
 import { useContext, useState } from 'react';
 import to from 'await-to-js';
 import {
@@ -13,18 +14,19 @@ import {
     Input,
     Button,
     Center,
-    Link
+    Text,
 } from '@chakra-ui/react';
 
 import { PublicLayout } from "../components/layouts";
-import { IocContext } from '../hooks';
+import { IocContext, isSignedIn, useDarkMode } from '../hooks';
 
-const signinHook = () => {
+const useSigninHook = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [hasErrors, setHasErrors] = useState(false);
     const [hasSuccess, setHasSuccess] = useState(false);
     const ioc = useContext(IocContext);
+    // const signedIn = isSignedIn();
 
     const onClickSignin = async () => {
         setHasSuccess(false);
@@ -42,7 +44,8 @@ const signinHook = () => {
 };
 
 const Signin : NextPage = () => {
-    const hook = signinHook();
+    const hook = useSigninHook();
+    const isDarkMode = useDarkMode();
     return (
         <PublicLayout>
             <Box h="100px" />
@@ -52,9 +55,14 @@ const Signin : NextPage = () => {
                     maxW="400px" 
                     border="1px" 
                     padding="20px 30px" 
+                    paddingBottom="30px"
                     borderRadius="4px" 
-                    borderColor="gray.200"
+                    borderColor={ isDarkMode ? "gray.700" : "gray.200" }
                 >
+                    <Text fontSize="lg">Sign in</Text>
+
+                    <Box h="15px"/>
+                    
                     { hook.hasErrors ? (
                         <>
                             <Alert status="error">
@@ -97,7 +105,7 @@ const Signin : NextPage = () => {
                         <Button w="100%" onClick={ hook.onClickSignin }>Login</Button>
                         <Box h="15px"/>
                         <Link href="/signup">
-                        <Button w="100%" variant="outline">Create new account</Button>
+                            <Button w="100%" variant="outline">Create new account</Button>
                         </Link>
                     </Flex>
                 </Flex>

@@ -5,7 +5,7 @@ export class UserClient extends HasuraClient {
     public findUserByEmail = async (email: String): Promise<any> => {
         const [err, user] = await to(this.request(`
             query {
-                users_by_pk(email: "${ email }") {
+                users(where: { email: { _eq: "${ email }" } }, limit: 1) {
                     id
                     email
                     password_hash
@@ -16,9 +16,11 @@ export class UserClient extends HasuraClient {
 
         if (err) {
             throw err;
+        } else if (!user || !user.users || user.users.length != 1) {
+            throw 'User not found';
         }
 
-        return user.users_by_pk;
+        return user.users[0];
     };
 
     public createUser = async (input: any) : Promise<any> => {

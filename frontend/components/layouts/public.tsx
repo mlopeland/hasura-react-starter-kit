@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { 
     Box, 
     Button, 
@@ -9,12 +10,15 @@ import {
     MenuItem, 
     MenuList, 
     Text,
-    Link
-} from '@chakra-ui/react'
+    Stack,
+    useColorMode,
+} from '@chakra-ui/react';
+import { MdDarkMode } from 'react-icons/md';
 
 import publicLayoutStyles from '../../styles/PublicLayout.module.css'
 
 export const PublicLayout = (props: any) => {
+    const { toggleColorMode } = useColorMode();
     const { children } = props;
     return (
         <Box>
@@ -43,9 +47,16 @@ export const PublicLayout = (props: any) => {
                                 </Flex>
                             )) }
                         </Flex>
-                        <Flex align="flex-end">
-                            <Link colorScheme="blue" href="/signin">Login</Link>
-                        </Flex>
+                        <Stack direction="row">
+                            <Center>
+                                <Button variant="link" onClick={ toggleColorMode }>
+                                    <MdDarkMode />
+                                </Button>
+                            </Center>
+                            <Center>
+                                <Link href="/signin">Login</Link>
+                            </Center>
+                        </Stack>
                     </Flex>
                 </Container>
             </Flex>

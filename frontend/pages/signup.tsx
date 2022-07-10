@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Link from 'next/link';
 import { useContext, useState } from 'react';
 import to from 'await-to-js';
 import {
@@ -13,14 +14,13 @@ import {
     Input,
     Button,
     Center,
-    Text,
-    Link
+    Text
 } from '@chakra-ui/react';
 
 import { PublicLayout } from "../components/layouts";
-import { IocContext } from '../hooks';
+import { IocContext, useDarkMode } from '../hooks';
 
-const signupHook = () => {
+const useSignupHook = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [hasErrors, setHasErrors] = useState(false);
@@ -43,7 +43,8 @@ const signupHook = () => {
 };
 
 const Signup : NextPage = () => {
-    const hook = signupHook();
+    const hook = useSignupHook();
+    const darkMode = useDarkMode();
     return (
         <PublicLayout>
             <Box h="100px" />
@@ -53,8 +54,9 @@ const Signup : NextPage = () => {
                     maxW="400px" 
                     border="1px" 
                     padding="20px 30px" 
+                    paddingBottom="30px"
                     borderRadius="4px" 
-                    borderColor="gray.200"
+                    borderColor={ darkMode ? "gray.700" : "gray.200" }
                 >
                     <Text fontSize="lg">Register new account</Text>
 

@@ -10,7 +10,7 @@ export class UnAuthenticatedClient extends BaseBackendClient {
                 }	
             }
         `, { email, password }));
-
+        
         return (!err && res && res.signin && res.signin.email === email);
     };
 
