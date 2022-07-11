@@ -7,6 +7,8 @@ import React, {
     createContext,
 } from 'react';
 import cookie from 'cookie';
+import { useRouter } from 'next/router';
+import { useToast } from '@chakra-ui/react';
 
 interface ISession {
     token: string | undefined,
@@ -22,6 +24,8 @@ const SessionContext = createContext<ISession>({
 
 const useSessionHook = (): ISession => {
     const [token, setToken] = useState<string | undefined>();
+    const router = useRouter();
+    const toast = useToast();
     let deleteSession = () => {};
     if (typeof document !== 'undefined') {
         let stored: any = cookie.parse(document.cookie);
@@ -32,9 +36,21 @@ const useSessionHook = (): ISession => {
         }, [ stored ]);
         deleteSession = useCallback(() => {
             document.cookie = cookie.serialize('t', undefined);
+            router.push('/');
+            toast({
+                title: 'Session closed',
+                description: "You've succesfully closed your session",
+                position: 'top-right',
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+            });
         }, []);
     }
-    return useMemo(() => ({ token, setToken, deleteSession }), [ token ]);
+    return useMemo(() => 
+        ({ token, setToken, deleteSession }), 
+         [ token, setToken, deleteSession ]
+    );
 };
 
 interface ISessionProviderProps {

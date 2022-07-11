@@ -1,20 +1,19 @@
 import { NextPage } from 'next';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import to from 'await-to-js';
 import {
-    Alert, 
-    AlertIcon,
-    AlertTitle,
     Box,
-    CloseButton,
     Flex,
     FormControl,
     FormLabel,
+    FormErrorMessage,
     Input,
     Button,
     Center,
     Text,
+    useToast
 } from '@chakra-ui/react';
 
 import { PublicLayout } from "../components/layouts";
@@ -26,6 +25,8 @@ const useSigninHook = () => {
     const [hasErrors, setHasErrors] = useState(false);
     const [hasSuccess, setHasSuccess] = useState(false);
     const ioc = useContext(IocContext);
+    const router = useRouter();
+    const toast = useToast();
     // const signedIn = isSignedIn();
 
     const onClickSignin = async () => {
@@ -34,7 +35,15 @@ const useSigninHook = () => {
         const [err, signin] = await to(ioc.unauthenticatedClient.signIn(email, password));
         if (!err && signin === true) {
             setHasSuccess(true);
-            // Redirect to signed in page
+            router.push('/spa/');
+            toast({
+                title: 'Welcome back',
+                description: `Succesfully signed in with email ${ email }`,
+                status: 'success',
+                duration: 3000,
+                isClosable: true,
+                position: 'top-right',
+            });
         } else {
             setHasErrors(true);
         }
@@ -63,29 +72,7 @@ const Signin : NextPage = () => {
 
                     <Box h="15px"/>
                     
-                    { hook.hasErrors ? (
-                        <>
-                            <Alert status="error">
-                                <AlertIcon />
-                                <AlertTitle>Invalid credentials</AlertTitle>
-                                <CloseButton position="absolute" right="8px" top="8px" 
-                                    onClick={ e => hook.setHasErrors(false) }/>
-                            </Alert>
-                            <Box h="15px"/>
-                        </>
-                    ) : undefined }
-
-                    { hook.hasSuccess ? (
-                        <>
-                            <Alert status="success">
-                                <AlertIcon />
-                                <AlertTitle>Successfully signed in</AlertTitle>
-                            </Alert>
-                            <Box h="15px"/>
-                        </>
-                    ) : undefined }
-
-                    <FormControl>
+                    <FormControl isInvalid={ hook.hasErrors }>
                         <FormLabel htmlFor="email">Email</FormLabel>
                         <Input id="email" type="email" fontSize="xs" value={ hook.email } 
                             onChange={ e => hook.setEmail(e.target.value) } />
@@ -93,10 +80,13 @@ const Signin : NextPage = () => {
 
                     <Box h="15px"/>
 
-                    <FormControl>
+                    <FormControl isInvalid={ hook.hasErrors }>
                         <FormLabel htmlFor="password">Password</FormLabel>
                         <Input id="password" type="password" value={ hook.password } 
                             onChange={ e => hook.setPassword(e.target.value) } />
+                        { hook.hasErrors ? (
+                            <FormErrorMessage>Wrong credentials</FormErrorMessage>
+                        ) : undefined }
                     </FormControl>
 
                     <Box h="15px"/>

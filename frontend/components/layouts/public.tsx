@@ -24,7 +24,7 @@ export const PublicLayout = (props: any) => {
                 <Container maxW="container.lg">
                     <Stack direction="row" height="70px">
                         <Center>
-                        <Link href="/">Logo</Link>
+                        <Link href="/">Hasura React Template</Link>
                         </Center>
                         <Spacer />
                         <Stack direction="row">

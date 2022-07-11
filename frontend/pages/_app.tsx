@@ -7,13 +7,13 @@ import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <IocProvider>
-      <SessionProvider>
-        <ChakraProvider>
+    <ChakraProvider>
+      <IocProvider>
+        <SessionProvider>
           <Component {...pageProps} />
-        </ChakraProvider>
-      </SessionProvider>
-    </IocProvider>
+        </SessionProvider>
+      </IocProvider>
+    </ChakraProvider>
   )
 }
 
