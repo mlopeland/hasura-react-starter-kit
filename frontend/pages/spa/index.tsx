@@ -1,12 +1,20 @@
 import { NextPage } from "next";
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+} from 'react-router-dom';
 
-import { SpaLayout } from "../../components/layouts";
+import { HomePage, MyAccountPage } from "../../components/pages";
 
 const Spa = () => {
     return (
-        <SpaLayout>
-            <>SpaContent</>
-        </SpaLayout>
+        <BrowserRouter basename="/spa">
+            <Routes>
+                <Route path="/" element={ <HomePage /> } />
+                <Route path="/my-account" element={ <MyAccountPage /> } />
+            </Routes>
+        </BrowserRouter>
     );
 };
 

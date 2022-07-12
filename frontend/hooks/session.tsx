@@ -35,7 +35,7 @@ const useSessionHook = (): ISession => {
             }
         }, [ stored ]);
         deleteSession = useCallback(() => {
-            document.cookie = cookie.serialize('t', undefined);
+            document.cookie = cookie.serialize('t', 'undefined');
             router.push('/');
             toast({
                 title: 'Session closed',
