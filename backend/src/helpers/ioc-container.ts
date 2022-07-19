@@ -1,5 +1,6 @@
 import { UserClient } from '../clients/users';
 import { JwtService } from './jwt-service';
+import { AuthService } from './auth-service';
 
 export class ContextContainer {
     public req: any;
@@ -16,12 +17,15 @@ export class ContextContainer {
 export class ContextIoC {
     public userClient : UserClient;
     public jwtService : JwtService;
+    public authService : AuthService;
 
     public constructor(
         userClient: UserClient,
-        jwtService: JwtService) {
+        jwtService: JwtService,
+        authService: AuthService) {
         
             this.userClient = userClient;
             this.jwtService = jwtService;
+            this.authService = authService;
     }
 }

@@ -8,7 +8,6 @@ export class HasuraClient {
     }
 
     protected request = async (query: string, variables : any = undefined) => {
-        const data = await this.client.request(gql`${ query }`, variables);
-        return data;
+        return await this.client.request(gql`${ query }`, variables);
     };
 }

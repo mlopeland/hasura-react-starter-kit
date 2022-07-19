@@ -12,5 +12,7 @@ export const schema = buildSchema(`
     type Mutation {
         signup(email: String, password: String): User
         signin(email: String, password: String): User
+
+        changePassword(password: String, passwordRepeat: String): User,
     }
 `);

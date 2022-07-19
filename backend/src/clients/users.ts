@@ -39,4 +39,12 @@ export class UserClient extends HasuraClient {
 
         return created.insert_users_one;
     }
+
+    public changePassword = async (
+        email: String,
+        password: String,
+        passwordRepeat: String,
+    ) => {
+        
+    };
 }

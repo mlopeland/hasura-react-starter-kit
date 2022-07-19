@@ -74,7 +74,7 @@ export const SpaLayout = (props: ISpaLayoutProps) => {
                         >
                             <Menu />
                         </Box>
-                        <Box>
+                        <Box w="100%">
                             { children }
                         </Box>
                     </Stack>

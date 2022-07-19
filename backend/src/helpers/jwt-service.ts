@@ -1,29 +1,38 @@
-import jwt from 'jsonwebtoken';
+import { User } from "../models";
+
+export const HASURA_CLAIMS = 'https://hasura.io/jwt/claims';
+export const HASURA_USER_ID = 'x-hasura-user-id';
 
 export class JwtService {
+    private jwt: any;
     private secret : string;
     private config : any;
 
-    public constructor(secret: string) {
+    public constructor(jwt: any, secret: string) {
+        this.jwt = jwt;
         this.secret = secret;
         this.config = {
             algorithm: 'HS256'
         };
     }
 
-    public build = (user: any) => {
+    public build = (user: User): string => {
         const payload = {
             email: user.email,
-            "https://hasura.io/jwt/claims": {
+            [HASURA_CLAIMS]: {
                 "x-hasura-allowed-roles": ["user"],
                 "x-hasura-default-role": "user",
-                "x-hasura-user-id": user.id
+                [HASURA_USER_ID]: user.id
             }
         };
-        return jwt.sign(payload, this.secret, this.config);
+        return this.jwt.sign(payload, this.secret, this.config);
     };
 
-    public verify = (token: string) => {
-        return jwt.verify(token, this.secret, this.config);
+    public verify = (token: string): boolean => {
+        return this.jwt.verify(token, this.secret, this.config);
+    };
+
+    public extractPayload = (token: string): any => {
+        
     };
 }
