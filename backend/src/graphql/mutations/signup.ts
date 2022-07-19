@@ -2,6 +2,11 @@ import to from 'await-to-js';
 
 import { ContextContainer, ContextIoC } from "../../helpers";
 
+export interface ISignupMutation {
+    email: string,
+    password: string,
+}
+
 export class SignupMutation {
     private ioc: ContextIoC;
     private bcrypt: any;
@@ -11,7 +16,7 @@ export class SignupMutation {
         this.bcrypt = bcrypt;
     }
 
-    public signup = async (input: any, ctx: ContextContainer) => {
+    public signup = async (input: ISignupMutation, ctx: ContextContainer) => {
         const { email, password } = input;
         const password_salt = this.bcrypt.genSaltSync(10);
         const password_hash = this.bcrypt.hashSync(password, password_salt);

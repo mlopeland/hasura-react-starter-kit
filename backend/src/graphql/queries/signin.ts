@@ -2,6 +2,11 @@ import to from 'await-to-js';
 
 import { ContextContainer, ContextIoC } from '../../helpers';
 
+export interface ISigninQuery {
+    email: string,
+    password: string,
+}
+
 export class SigninQuery {
     private ioc: ContextIoC;
     private bcrypt: any;
@@ -11,7 +16,7 @@ export class SigninQuery {
         this.bcrypt = bcrypt;
     }
 
-    public signin = async (input: any, ctx: ContextContainer) => {
+    public signin = async (input: ISigninQuery, ctx: ContextContainer) => {
         const { email, password } = input;
         const [err, user] = await to(this.ioc.userClient.findUserByEmail(email));
         if (err) {

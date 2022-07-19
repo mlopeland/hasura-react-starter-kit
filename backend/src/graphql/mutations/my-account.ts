@@ -6,7 +6,7 @@ interface IChangePassword {
 }
 
 export const changePassword = async (input: IChangePassword, context: ContextContainer) => {
-    const { req, ioc } = context;
+    const { req } = context;
     const { password, passwordRepeat } = input;
     console.log(req.headers);
 };

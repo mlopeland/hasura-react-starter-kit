@@ -5,12 +5,10 @@ import { AuthService } from './auth-service';
 export class ContextContainer {
     public req: any;
     public res: any;
-    public ioc: ContextIoC;
 
-    constructor(req: any, res: any, ioc: ContextIoC) {
+    constructor(req: any, res: any) {
         this.req = req;
         this.res = res;
-        this.ioc = ioc;
     }
 }
 

@@ -36,7 +36,7 @@ const rootValue = buildRootValue(signupMutation, signinQuery);
 // middlewares
 app.use(cookieParser());
 app.use('/v0/graphql', graphqlHTTP((req: any, res: any) => 
-    ({ schema, rootValue, context: new ContextContainer(req, res, contextIoC) })));
+    ({ schema, rootValue, context: new ContextContainer(req, res) })));
 
 // routing
 app.post('/v1/graphql', proxy(`${ HASURA }/v1/graphql`));
